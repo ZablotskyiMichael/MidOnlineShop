@@ -1,0 +1,56 @@
+
+<div>
+    <table>
+        <tr ng-repeat="history in ctrl.getRecommendedProduct()">
+            <td>
+                {{history.user.name}}
+            </td>
+            <td>
+                {{just}}
+            </td>
+            <td>
+                so...so...
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<!--
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Welcome Security with Spring Boot!</title>
+</head>
+<body>
+<div class="panel panel-default">
+    &lt;!&ndash; <tr ng-repeat="r in ctrl.loadAllUsers()"></tr>&ndash;&gt;
+    &lt;!&ndash; Default panel contents &ndash;&gt;
+    <div class="panel-body">
+<h1 style="color:blue"> Hello!  This is Welcome Page!</h1>
+&lt;!&ndash;<div th:text="${@authService.getUserName()}">...</div>&ndash;&gt;
+<p th:text="${username}">Welcome to our grocery store!</p>
+<a style="color:blue" th:href="@{/}">Go to Home Page!</a>
+<br/>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+<form th:action="@{/user/account}" method="get">
+    <input type="submit" value="Your Account"/>
+</form>
+<form>
+<div>
+    <table ng-repeat="history in ctrl.getRecommendedProducts()">
+        <tr>
+            <td>
+                {{history.user.name}}
+            </td>
+            <td>table</td>
+        </tr>
+    </table>
+</div>
+</form>
+    </div></div>
+</body>
+</html>-->

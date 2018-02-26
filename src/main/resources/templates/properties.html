@@ -1,0 +1,58 @@
+<div><table class="table table-hover"><tr><td>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+
+    <div class="panel-heading"><span class="lead">Change value : </span></div>
+    <div class="panel-body">
+        <div class="formcontainer">
+            <div class="alert alert-success" role="alert" ng-if="ctrl.successPropertyMessage">{{ctrl.successPropertyMessage}}</div>
+            <div class="alert alert-danger" role="alert" ng-if="ctrl.errorPropertyMessage">{{ctrl.errorPropertyMessage}}</div>
+            <form ng-submit="ctrl.submitProperty()" name="myPropertyForm" class="form-horizontal">
+                <input type="hidden" ng-model="ctrl.property.id" />
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable" >Property :</label>
+                        <div class="col-md-7">
+                            {{ctrl.property.name}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable" for="propertyValue">Value :</label>
+                        <div class="col-md-7">
+                            <input type="text" ng-model="ctrl.property.value" id="propertyValue" class="username form-control input-sm" placeholder="Enter new value"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-actions floatRight">
+                        <button type="button" ng-click="ctrl.updateProperty()" class="btn btn-warning btn-sm" >Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div></td><td>
+    <div class="panel-heading"><span class="lead">List of Properties </span></div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>PROPERTY</th>
+                    <th>VALUE</th>
+                    <th width="100"></th>
+                    <th width="100"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="property in ctrl.getAllProperties()">
+                    <td>{{property.name}}</td>
+                    <td>{{property.value}}</td>
+                    <td><button type="button" ng-click="ctrl.editProperty(property.id)" class="btn btn-success custom-width">Edit</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </td></tr></table></div>

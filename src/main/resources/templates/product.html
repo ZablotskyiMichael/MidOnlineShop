@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:background-image="http://java.sun.com/JSP/Page">
+<div class="panel panel-default">
+    <form ng-submit="ctrl.submitPurchase()" name="myToBaskedForm" class="form-horizontal">
+    <div class="panel-heading"><span class="lead">Product : </span></div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>PRODUCT</th>
+                <th>Information :</th>
+                <th width="300"></th>
+                <th width="300"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr >
+                <td><img th:src="@{/images/jpg/{{ctrl.purchase.product.image.name}}}" class="img-responsive center-block" width="400" height="400" alt="Logo" /></td>
+                <td>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>Id of item:</td>
+                            <td>{{ctrl.purchase.product.id}}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Product:
+                            </td>
+                            <td>{{ctrl.getCurrentProduct().name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Category:</td>
+                            <td>{{ctrl.purchase.product.category.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Price:</td>
+                            <td>{{ctrl.purchase.product.price}}</td>
+                        </tr>
+                        <tr>
+                            <td>With your discount:</td>
+                            <td>{{ctrl.purchase.product.price - ctrl.purchase.product.price*ctrl.getDiscount().value/100}}</td>
+                        </tr>
+                        <!--<tr>
+                            <td>RelatedProduct:</td>
+                            <td>{{ctrl.getCurrentRelatedProduct()}}</td>
+                        </tr>-->
+                        <tr>
+                            <td><input type="text" ng-model="ctrl.purchase.count" class="form-control input-sm" placeholder="Enter count of items" ng-pattern="ctrl.onlyIntegers"/>
+                            </td>
+                            <td> <button type="button" ng-click="ctrl.addToBasked()" class="btn btn-success btn-block">To Busked</button></td>
+                            <div class="alert alert-success" role="alert" ng-if="ctrl.doneToBasked">{{ctrl.successToBaskedMessage}}</div>
+                            <div class="alert alert-danger" role="alert" ng-if="ctrl.errorToBasked">{{ctrl.errorToBaskedMessage}}</div>
+                        </tr>
+                        <!--<tr>
+                            <td>
+                                {{ctrl.purchase}}
+                            </td>
+                        </tr>-->
+                    </table>
+                </td>
+
+               <!-- <td>{{ctrl.currentProduct.id}}</td>
+                <td>{{ctrl.currentProduct.name}}</td>-->
+            </tr>
+            </tbody>
+        </table>
+
+    </div></form>
+</div>
+<div><div class="panel panel-default">
+    <form ng-submit="ctrl.submitPurchase()" name="myToBaskedForm" class="form-horizontal"><table><tr><td>
+    <table><tr>
+        <td><div class="alert alert-success" role="alert" ng-if="ctrl.doneToBaskedRelated">{{ctrl.successToBaskedRelatedMessage}}</div></td>
+          <td> <div class="alert alert-danger" role="alert" ng-if="ctrl.notDoneToBaskedRelated">{{ctrl.errorToBaskedRelatedMessage}}</div></td>
+    </tr>
+        <tr><td>Buy together and get a discount {{ctrl.getRelatedDiscount().value}}%:</td></tr>
+        <tr >
+
+            <td><img th:src="@{/images/jpg/{{ctrl.relatedProduct.image.name}}}" class="img-responsive center-block" width="200" height="200" alt="Logo" /></td>
+            <td><img th:src="@{/images/jpg/plus}" class="img-responsive center-block" width="50" height="50" alt="Logo" /></td>
+            <td><img th:src="@{/images/jpg/{{ctrl.purchase.product.image.name}}}" class="img-responsive center-block" width="200" height="200" alt="Logo" /></td>
+            <td><img th:src="@{/images/jpg/equals}" class="img-responsive center-block" width="40" height="40" alt="Logo" /></td>
+            <td><img th:src="@{/images/jpg/discount}" class="img-responsive center-block" width="150" height="150" alt="Logo" /></td>
+
+        </tr>
+
+        <tr>
+            <td>{{ctrl.getCurrentRelatedProduct().name}}</td>
+            <td></td>
+            <td>{{ctrl.purchase.product.name}}</td>
+        </tr>
+</table>
+    <table>
+        <tr>
+          <td><button type="button" ng-click="ctrl.addToBaskedRelatedProducts()" class="btn btn-success btn-block">To Busked</button></td>
+        </tr>
+    </table></td></tr></table></form></div><br/>
+</div>
+<div>
+    <table>
+        <tr>
+            <td>
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+
+                    <div class="panel-heading"><span class="lead">Write your comment :</span></div>
+                    <div class="panel-body">
+                        <div class="formcontainer">
+                            <div class="alert alert-success" role="alert" ng-if="ctrl.successCommentMessage">{{ctrl.successCommentMessage}}</div>
+                            <div class="alert alert-danger" role="alert" ng-if="ctrl.errorCommentMessage">{{ctrl.errorCommentMessage}}</div>
+                            <form ng-submit="ctrl.createComment()" name="myCommentForm" class="form-horizontal">
+                                <input type="hidden" ng-model="ctrl.storage.id" />
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-lable" >Your name</label>
+                                        <div class="col-md-7">
+                                            {{ctrl.getCurrentUser().name}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-lable" for="comment">Enter your comment:</label>
+                                        <div class="col-md-7">
+                                            <input type="text" ng-model="ctrl.message.text" id="comment" class="form-control input-sm" placeholder="Enter text"  ng-minlength="3"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-lable" for="cname">Password</label>
+                                        <div class="col-md-7">
+                                            <input type="text" ng-model="ctrl.message.password" id="cname" class="username form-control input-sm" placeholder="Enter password"  ng-minlength="3"/>
+                                        </div>
+                                    </div>
+                                </div>-->
+                                <div class="row" >
+                                    <div class="form-actions floatRight">
+                                        <button type="button" ng-click="ctrl.createMessage()" class="btn btn-danger custom-width">Add</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+            </td>
+        </tr>
+    </table>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+
+        <div class="panel-heading"><span class="lead">Comments</span></div>
+        <div class="panel-body">
+            <div class="formcontainer">
+                <table class="table table-hover"  ng-repeat="message in ctrl.getAllMessages()" >
+                   <tr><td ng-if="message.parentId"> </td>
+                       <td>
+                       <table> <tr>
+                           <td>{{message.user.name}}   {{message.time}}</td>
+                       </tr>
+                           <tr><!--<td ng-if="message.parentId">
+                                    </td>-->
+                               <td><img th:src="@{/images/jpg/user}" class="img-responsive right-block" width="30" height="30" alt="Logo" /></td></tr>
+                           <tr><!--<td ng-if="message.parentId">               </td>-->
+                               <td>{{message.text}}</td></tr><tr>
+                               <td><div class="row" ng-if="!message.parentId">
+                                   <div class="form-group col-md-12">
+                                       <div class="col-md-7">
+                                           <input type="text" ng-model="ctrl.reply.text" id="reply" class="form-control input-lg" placeholder="Enter text"  />
+                                       </div>
+                                   </div>
+                               </div></td></tr><tr>
+                               <td ng-if="!message.parentId"><button type="button" ng-click="ctrl.replyMessage(message.id)" class="btn btn-success custom-width">Reply</button> </td>
+
+                           </tr></table>
+                   </td> </tr>
+                </table></div></div></div>
+
+</div>
+</html>

@@ -1,0 +1,32 @@
+<div>
+    <div class="panel-heading"><span class="lead">Your basked </span></div>
+    <div class="alert alert-success" role="alert" ng-if="ctrl.doneBasked">{{ctrl.successBaskedMessage}}</div>
+    <div class="alert alert-danger" role="alert" ng-if="ctrl.notDoneBasked">{{ctrl.errorBaskedMessage}}</div>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>USER</th>
+        <th>PRODUCT</th>
+        <th>COUNT</th>
+        <th>TOTAL PRICE</th>
+        <th width="100"></th>
+        <th width="100"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="purchase in ctrl.getPurchaseByUserInBasked()">
+        <td>{{purchase.id}}</td>
+        <td>{{purchase.user.name}}</td>
+        <td>{{purchase.product.name}}</td>
+        <td>{{purchase.count}}</td>
+        <td>{{purchase.total_price}}</td>
+        <td><button type="button" ng-click="ctrl.deletePurchase(purchase.id)" class="btn btn-danger custom-width">Undo</button></td>
+    </tr>
+    <tr>
+        <td>
+            <button type="button" ng-click="ctrl.buyAllItemInBasked()" class="btn btn-success custom-width">Buy Items</button>
+        </td>
+    </tr>
+    </tbody>
+</table></div>

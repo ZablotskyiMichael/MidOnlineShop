@@ -1,0 +1,57 @@
+<div><table class="table table-hover"><tr><td>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+
+    <div class="panel-heading"><span class="lead">Category </span></div>
+    <div class="panel-body">
+        <div class="formcontainer">
+            <div class="alert alert-success" role="alert" ng-if="ctrl.successRoleMessage">{{ctrl.successRoleMessage}}</div>
+            <div class="alert alert-danger" role="alert" ng-if="ctrl.errorRoleMessage">{{ctrl.errorRoleMessage}}</div>
+            <form ng-submit="ctrl.submitCategory()" name="myCategoryForm" class="form-horizontal">
+                <input type="hidden" ng-model="ctrl.category.id" />
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable" for="cname">Category</label>
+                        <div class="col-md-7">
+                            <input type="text" ng-model="ctrl.category.name" id="cname" class="username form-control input-sm" placeholder="Enter new category"  ng-minlength="3"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-actions floatRight">
+                        <input type="submit"  value="{{!ctrl.category.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myCategoryForm.$invalid || myCategoryForm.$pristine"/>
+                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myRoleForm.$pristine">Reset Form</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</td><td>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><span class="lead">List of Categories </span></div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>CATEGORY_ID</th>
+                    <th>NAME</th>
+                    <th width="100"></th>
+                    <th width="100"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="c in ctrl.getAllCategories()">
+                    <td>{{c.id}}</td>
+                    <td>{{c.name}}</td>
+                    <td><button type="button" ng-click="ctrl.editCategory(c.id)" class="btn btn-success custom-width">Edit</button></td>
+                    <td><button type="button" ng-click="ctrl.removeCategory(c.id)" class="btn btn-danger custom-width">Remove</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</td></tr></table></div>

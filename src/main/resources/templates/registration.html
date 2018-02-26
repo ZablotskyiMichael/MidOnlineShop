@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+<h1><p>Registration form</p></h1>
+<form action="/user/registration" th:object="${user}" method="POST" enctype="utf8">
+    <div th:if="${error != null}" ><h1 style="color:red">Username or Password is invalid !</h1></div>
+    <div>
+        <td th:text="${user.name}">Oranges</td>
+        <label>Input your name:
+        <input th:field="*{name}"/>
+        <p th:each="error: ${#fields.errors('name')}"
+           th:text="${error}">Validation error</p>
+        </label>
+    </div>
+    <div>
+        <label>Input password:
+        <input type="password" th:field="*{password}"/>
+
+        </label>
+    </div>
+    <div>
+    <select th:field="*{parent_name}">
+        <option th:each="user : ${listOfUsers}"
+                th:value="${user.name}" th:text="${user.name}">wireframe</option>
+    </select>
+    </div>
+    <div><input type="submit"  value="Register"/></div>
+</form>
+
+<form th:action="@{/login}" method="get">
+    <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
+</form>
+</body>
+</html>

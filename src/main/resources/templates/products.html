@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:background-image="http://java.sun.com/JSP/Page">
+<head>
+   <!-- <style>
+        body {
+            background-image: url("/images/background.jpg");
+        }
+    </style>-->
+</head>
+<body>
+<!--<div class="panel panel-default">
+    &lt;!&ndash; Default panel contents &ndash;&gt;
+
+    <div class="panel-heading"><span class="lead">Purchase </span></div>
+    <div class="panel-body">
+        <div class="formcontainer">
+            <div class="alert alert-success" role="alert" ng-if="ctrl.successMessage">{{ctrl.successMessage}}</div>
+            <div class="alert alert-danger" role="alert" ng-if="ctrl.errorMessage">{{ctrl.errorMessage}}</div>
+            <form ng-submit="ctrl.submitPurchase()" name="myForm" class="form-horizontal">
+                <input type="hidden" ng-model="ctrl.purchase.id" />
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable" >Product</label>
+                        <div class="col-md-7">
+                            {{ctrl.purchase.product.name}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable" for="count">EnterCount</label>
+                        <div class="col-md-7">
+                            <input type="text" ng-model="ctrl.purchase.count" id="count" class="form-control input-sm" placeholder="Enter count"  ng-pattern="ctrl.onlyIntegers"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable" >Total price : </label>
+                        <div class="col-md-7">
+                            {{ctrl.purchase.product.price*ctrl.purchase.count}}  (-{{ctrl.property.value}}%)
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-actions floatRight">
+                        <button type="button" ng-click="ctrl.buyProduct()" class="btn btn-danger custom-width">Buy</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>-->
+
+<!--<div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>IMAGE</th>
+            <th width="100"></th>
+            <th width="100"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="image in ctrl.getAllImages()">
+            <td>{{image.id}}</td>
+            <td><img th:src="@{/images/{{image.name}}}" class="img-responsive center-block" width="300" height="300" alt="Logo" /></td>
+            <td>{{image.name}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>-->
+<div class="panel panel-default">
+
+    <div class="panel-heading"><span class="lead">List of Products </span></div>
+    <div class="panel-body">
+        <div> <table class="table table-hover ">
+            <tr>
+                <td>
+          <table>
+              <thead>
+              <tr>
+                  <th>Choose category:</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td><button type="button" ng-click="ctrl.loadAllProducts()" class="btn btn-link btn-lg">All categories</button></td>
+              </tr>
+            <tr ng-repeat="category in ctrl.getAllCategories()">
+                <td><button type="button" ng-click="ctrl.filterByCategory(category)" class="btn btn-link btn-lg">{{category.name}}</button></td>
+            </tr>
+              </tbody>
+          </table>
+                </td>
+                <td>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>PRICE</th>
+                    <th width="200"></th>
+                    <th width="200"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="u in ctrl.getAllProducts()">
+                    <td>{{u.id}}</td>
+                    <td><form th:action="@{/#/product}" method="get">
+                        <button class="btn btn-md btn-warning btn-block" ng-click="ctrl.setCurrentProduct(u)" type="Submit">{{u.name}}</button>
+                    </form></td>
+                    <td>{{u.price}}</td>
+                    <td><img th:src="@{/images/jpg/{{u.image.name}}}" class="img-responsive center-block" width="200" height="200" alt="Logo" /></td>
+
+                    <!--<td><button type="button" ng-click="ctrl.issuePurchase(u.id)" class="btn btn-info custom-width">Order</button></td>-->
+                </tr>
+                </tbody>
+            </table>
+                </td>
+            </tr>
+        </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<h2>Welcome ! This is the start page !</h2>
+<div class="panel panel-default">
+<div>
+    <label>These items may interest you:</label>
+    <table>
+        <thead>
+        <tr>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td ng-repeat="history in ctrl.getRecommendedProducts()"><img th:src="@{/images/jpg/{{history.product.image.name}}}" class="img-responsive center-block" width="150" height="150" alt="Logo" /></td>
+        </tr>
+        <tr>
+            <td ng-repeat="history in ctrl.getRecommendedProducts()"><form th:action="@{/#/product}" method="get">
+                <button class="btn btn-md btn-warning btn-block" ng-click="ctrl.setCurrentProduct(history.product)" type="Submit">{{history.product.name}}</button>
+            </form></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+</html>

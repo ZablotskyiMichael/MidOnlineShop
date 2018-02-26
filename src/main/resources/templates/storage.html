@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div><table class="table table-hover"><tr><td>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+
+    <div class="panel-heading"><span class="lead">Add new product:</span></div>
+    <div class="panel-body">
+        <div class="formcontainer">
+            <div class="alert alert-success" role="alert" ng-if="ctrl.successNewProductMessage">{{ctrl.successNewProductMessage}}</div>
+            <div class="alert alert-danger" role="alert" ng-if="ctrl.errorNewProductMessage">{{ctrl.errorNewProductMessage}}</div>
+            <form ng-submit="ctrl.createProduct()" name="myNewProductForm" class="form-horizontal">
+                <input type="hidden" ng-model="ctrl.newProduct.id" />
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable" for="pname">Enter name:</label>
+                        <div class="col-md-7">
+                            <input type="text" ng-model="ctrl.newProduct.name" id="pname" class="form-control input-sm" placeholder="Enter name"  />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable" for="price">Enter Price:</label>
+                        <div class="col-md-7">
+                            <input type="text" ng-model="ctrl.newProduct.price" id="price" class="form-control input-sm" placeholder="Enter price"  ng-pattern="ctrl.onlyIntegers"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable" for="categorySelect">Choose category:</label>
+                        <div class="col-md-7">
+                            <select name="mySelect" id="categorySelect"
+                                    ng-options="category.name for category in ctrl.getAllCategories() track by category.id"
+                                    ng-model="ctrl.newProduct.category"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable" for="imageSelect">Choose image:</label>
+                        <div class="col-md-7">
+                            <select name="myImageSelect" id="imageSelect"
+                                    ng-options="image.name for image in ctrl.getAllImages() track by image.id"
+                                    ng-model="ctrl.newProduct.image"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable" for="relatedProductSelect">Choose related product:</label>
+                        <div class="col-md-7">
+                            <select name="myRelatedProductSelect" id="relatedProductSelect"
+                                    ng-options="product.name for product in ctrl.getAllProducts() track by product.id"
+                                    ng-model="ctrl.newRelatedProduct"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-actions floatRight">
+                        <button type="button" ng-click="ctrl.createProduct()" class="btn btn-danger custom-width">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</td><td>
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+
+    <div class="panel-heading"><span class="lead">Add quantities to the warehouse :</span></div>
+    <div class="panel-body">
+        <div class="formcontainer">
+            <div class="alert alert-success" role="alert" ng-if="ctrl.successAddMessage">{{ctrl.successAddMessage}}</div>
+            <div class="alert alert-danger" role="alert" ng-if="ctrl.errorAddMessage">{{ctrl.errorAddMessage}}</div>
+            <form ng-submit="ctrl.submitPurchase()" name="myAddForm" class="form-horizontal">
+                <input type="hidden" ng-model="ctrl.storage.id" />
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable" >Product</label>
+                        <div class="col-md-7">
+                            {{ctrl.storage.product.name}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable" for="storageCount">Enter Count</label>
+                        <div class="col-md-7">
+                            <input type="text" ng-model="ctrl.storage.count" id="storageCount" class="form-control input-sm" placeholder="Enter count"  ng-pattern="ctrl.onlyIntegers"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-actions floatRight">
+                        <button type="button" ng-click="ctrl.submitChange()" class="btn btn-danger custom-width">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</td></tr></table></div>
+<div>
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <p>Upload new image :</p>
+        <img th:src="@{/images/uploadEmp.png}"  width="113" height="80" alt="Logo" />
+        <input type="file" name="file" />
+        <input type="submit"  value="Submit" />
+    </form>
+</div>
+<div><table class="table table-hover"><tr><td>
+    <!-- <tr ng-repeat="r in ctrl.loadAllUsers()"></tr>-->
+    <!-- Default panel contents -->
+    <div class="panel-heading"><span class="lead">Storage </span></div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>PRODUCT</th>
+                    <th>COUNT</th>
+                    <th width="100"></th>
+                    <th width="100"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="u in ctrl.getAllStorage()">
+                    <td>{{u.id}}</td>
+                    <td>{{u.product.name}}</td>
+                    <td>{{u.count}}</td>
+
+                    <td><button type="button" ng-click="ctrl.editStorage(u.id)" class="btn btn-warning custom-width">Add count</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+</td><td>
+    <div class="panel-heading"><span class="lead">List of Purchase </span></div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>PRODUCT</th>
+                    <th>USER</th>
+                    <th>COUNT</th>
+                    <th>TOTAL PRICE</th>
+                    <th width="100"></th>
+                    <th width="100"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="u in ctrl.getAllPurchase()">
+                    <td>{{u.id}}</td>
+                    <td>{{u.product.name}}</td>
+                    <td>{{u.user.name}}</td>
+                    <td>{{u.count}}</td>
+                    <td>{{u.total_price}}</td>
+
+                    <td><button type="button" ng-click="ctrl.deletePurchase(u.id)" class="btn btn-primary custom-width">Done</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+</td></tr></table></div>
+</html>
